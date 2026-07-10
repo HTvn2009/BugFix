@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Học Code Online</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+    </style>
+</head>
+<body>
+    <nav class="bg-white shadow-sm border-b">
+        <div class="max-w-5xl mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-indigo-600">CodeMaster <span class="text-gray-400 font-light">| Junior</span></h1>
+            <a href="admin.html" class="text-sm bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg transition">Admin</a>
+        </div>
+    </nav>
+
+    <main class="max-w-5xl mx-auto px-4 py-10">
+        <div class="mb-8 text-center">
+            <h2 class="text-3xl font-bold text-gray-800">Problems</h2>
+        </div>
+
+        <div id="problemList" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Bài tập sẽ tự động hiện ở đây -->
+        </div>
+    </main>
+
+    <script>
+        const problems = JSON.parse(localStorage.getItem('problems') || '[]');
+        const listDiv = document.getElementById('problemList');
+
+        if (problems.length === 0) {
+            // Thêm md:col-span-2 để thông báo này chiếm hết 2 cột khi trống
+            listDiv.innerHTML = `<div class="md:col-span-2 text-center py-20 text-gray-400 border-2 border-dashed rounded-xl uppercase tracking-widest text-sm">Chưa có bài tập nào được tạo.</div>`;
+        }
+
+        problems.forEach(p => {
+            const div = document.createElement('div');
+            // Giữ nguyên logic Flex nhưng tinh chỉnh padding và khoảng cách
+            div.className = "bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex justify-between items-center hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer group";
+            div.onclick = () => window.location.href = `solve.html?id=${p.id}`;
+            div.innerHTML = `
+                <div class="pr-4">
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="w-2 h-2 rounded-full bg-indigo-500"></span>
+                        <h3 class="text-lg font-bold text-gray-800 group-hover:text-indigo-600 transition">${p.title}</h3>
+                    </div>
+                    <div class="flex gap-2">
+                        <span class="text-[10px] font-bold tracking-wider uppercase bg-slate-100 text-slate-500 px-2 py-1 rounded-md">C++</span>
+                        <span class="text-[10px] font-bold tracking-wider uppercase bg-indigo-50 text-indigo-500 px-2 py-1 rounded-md">${p.testCases.length} Test cases</span>
+                    </div>
+                </div>
+                <div class="bg-indigo-50 p-3 rounded-full group-hover:bg-indigo-600 transition-colors duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-600 group-hover:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                </div>
+            `;
+            listDiv.appendChild(div);
+        });
+    </script>
+</body>
+</html>
