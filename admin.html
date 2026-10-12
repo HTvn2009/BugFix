@@ -12,7 +12,10 @@
         <div class="w-full max-w-sm bg-slate-800 p-8 rounded-2xl shadow-2xl border border-slate-700 text-center">
             <div class="text-5xl mb-4">🔐</div>
             <h2 class="text-2xl font-bold mb-2">Request access</h2>
-            <input type="password" id="passInput" class="w-full bg-slate-700 border border-slate-600 rounded-lg p-3 text-center mb-4 text-xl outline-none focus:border-indigo-500 transition">
+            <input type="password" id="passInput" placeholder="Enter password" class="w-full bg-slate-700 border border-slate-600 rounded-lg p-3 text-center text-xl outline-none focus:border-indigo-500 transition">
+            <p id="defaultPassHint" class="mt-2 mb-4 text-xs text-slate-400">
+                First login? Default password: <strong class="text-slate-200">1234</strong>
+            </p>
             <button onclick="verifyPassword()" class="w-full bg-indigo-600 hover:bg-indigo-700 p-3 rounded-lg font-bold transition">Log in</button>
             <a href="index.html" class="block mt-4 text-sm text-slate-500">Return to main menu</a>
         </div>
@@ -79,7 +82,12 @@
     </div>
 
     <script>
-        let currentPass = localStorage.getItem('admin_password') || '1234';
+        const savedPass = localStorage.getItem('admin_password');
+        let currentPass = savedPass ?? '1234';
+
+        if (savedPass !== null) {
+            document.getElementById('defaultPassHint').classList.add('hidden');
+        }
 
         function verifyPassword() {
             if (document.getElementById('passInput').value === currentPass) {
