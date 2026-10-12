@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Học Code Online</title>
+    <title>Learn to Code Online</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="starter-problems.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
@@ -24,7 +25,6 @@
         </div>
 
         <div id="problemList" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <!-- Bài tập sẽ tự động hiện ở đây -->
         </div>
     </main>
 
@@ -32,14 +32,8 @@
         const problems = JSON.parse(localStorage.getItem('problems') || '[]');
         const listDiv = document.getElementById('problemList');
 
-        if (problems.length === 0) {
-            // Thêm md:col-span-2 để thông báo này chiếm hết 2 cột khi trống
-            listDiv.innerHTML = `<div class="md:col-span-2 text-center py-20 text-gray-400 border-2 border-dashed rounded-xl uppercase tracking-widest text-sm">Chưa có bài tập nào được tạo.</div>`;
-        }
-
         problems.forEach(p => {
             const div = document.createElement('div');
-            // Giữ nguyên logic Flex nhưng tinh chỉnh padding và khoảng cách
             div.className = "bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex justify-between items-center hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer group";
             div.onclick = () => window.location.href = `solve.html?id=${p.id}`;
             div.innerHTML = `

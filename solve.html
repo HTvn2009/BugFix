@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Luyện Code</title>
+    <title>Code Practice</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="starter-problems.js"></script>
     <style>
         .editor-bg { background-color: #1e1e1e; color: #d4d4d4; font-family: 'Consolas', monospace; }
         .custom-scrollbar::-webkit-scrollbar { width: 6px; }
@@ -24,13 +25,13 @@
     </header>
 
     <div class="flex flex-1 overflow-hidden">
-        <!-- Cột trái: Đề bài -->
+        <!-- Left column: Problem statement -->
         <div class="w-1/3 bg-white border-r overflow-y-auto p-6 custom-scrollbar">
-            <h2 class="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4">Problem describtion</h2>
+            <h2 class="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4">Problem description</h2>
             <div id="probDesc" class="text-gray-700 leading-relaxed text-lg whitespace-pre-wrap"></div>
         </div>
 
-        <!-- Cột phải: Editor & Kết quả -->
+        <!-- Right column: Editor and results -->
         <div class="flex-1 flex flex-col bg-slate-900">
             <div class="flex-1 relative">
                 <textarea id="codeEditor" spellcheck="false" class="w-full h-full p-6 editor-bg outline-none resize-none text-base">#include <iostream>
@@ -45,7 +46,7 @@ int main() {
 }</textarea>
             </div>
             
-            <!-- Khu vực kết quả -->
+            <!-- Results area -->
             <div id="resultArea" class="h-1/3 bg-white border-t p-6 overflow-y-auto custom-scrollbar shadow-2xl">
                 <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-3">Result</h3>
                 <div id="resultContent" class="space-y-2">
@@ -89,7 +90,7 @@ int main() {
                 } else {
                     report += `<div class="p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
                         <b>Test Case ${i+1}: ${result.status}</b><br>
-                        <span class="text-xs opacity-75 italic">Mong đợi: ${tc.output} | Nhận được: ${result.stdout || 'none'}</span>
+                        <span class="text-xs opacity-75 italic">Expected: ${tc.output} | Received: ${result.stdout || 'none'}</span>
                     </div>`;
                 }
             }
@@ -101,7 +102,7 @@ int main() {
                 <div class="space-y-2">${report}</div>
             `;
             btn.disabled = false;
-            btn.innerText = "Nộp bài & Chấm điểm";
+            btn.innerText = "Submit";
         }
 
         async function submitToJudge0(source_code, stdin, expected_output) {
